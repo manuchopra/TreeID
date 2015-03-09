@@ -1,0 +1,3 @@
+Plant identification is the building brick of plant research and development, and is very important for environmental protection and exploration. Usually, the leaves can be easily obtained from a plant and have sufficient visible characteristics for differentiating between their respective plant species.
+
+TreeID is an automatic leaf image recognition system for plant species identification. The aim of the project is to classify all of the 60,000 trees on Stanford’s campus. The dataset was obtained from several different sources including self-conducted tree walks. The system is based on a Convolutional Neural Network model.
