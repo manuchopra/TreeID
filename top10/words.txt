@@ -1,0 +1,10 @@
+1	abies concolor
+2	acer campestre
+3	carpinus betulus
+4	catalpa bignonioides
+5	cedrus deodara
+6	ginkgo biloba
+7	magnolia grandiflora
+8	morus alba
+9	quercus nigra
+10	robinia pseudo acacia
