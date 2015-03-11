@@ -117,7 +117,7 @@ def two_layer_convnet(X, model, y=None, reg=0.0):
   return loss, grads
 
 
-def init_two_layer_convnet(weight_scale=1e-3, bias_scale=0, input_shape=(3, 400, 400),
+def init_two_layer_convnet(weight_scale=1e-3, bias_scale=0, input_shape=(3, 200, 200),
                            num_classes=10, num_filters=25, filter_size=5):
   """
   Initialize the weights for a two-layer ConvNet.
@@ -151,7 +151,7 @@ def init_two_layer_convnet(weight_scale=1e-3, bias_scale=0, input_shape=(3, 400,
   return model
 
 
-def init_three_layer_convnet(weight_scale=1e-3, bias_scale=0, input_shape=(3,400,400), num_classes = 10,num_filters=25,filter_size=5):
+def init_three_layer_convnet(weight_scale=1e-3, bias_scale=0, input_shape=(3,200,200), num_classes = 10,num_filters=25,filter_size=5):
 
   C, H, W = input_shape
   assert filter_size % 2 == 1, 'Filter size must be odd; got %d' % filter_size

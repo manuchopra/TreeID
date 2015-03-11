@@ -1,0 +1,10 @@
+1	abies concolor
+2	acer campestre
+3	acer ginnala
+4	acer griseum
+5	acer palmatum
+6	aesculus flava
+7	aesculus hippocastamon
+8	betula jacquemontii
+9	betula nigra
+10	carpinus betulus

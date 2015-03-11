@@ -16,11 +16,11 @@ def load_tiny_imagenet(path, dtype=np.float):
     Returns: A tuple of
     - class_names: A list where class_names[i] is a list of strings giving the
     WordNet names for class i in the loaded dataset.
-    - X_train: (N_tr, 3, 400, 400) array of training images
+    - X_train: (N_tr, 3, 200, 200) array of training images
     - y_train: (N_tr,) array of training labels
-    - X_val: (N_val, 3, 400, 400) array of validation images
+    - X_val: (N_val, 3, 200, 200) array of validation images
     - y_val: (N_val,) array of validation labels
-    - X_test: (N_test, 3, 400, 400) array of testing images.
+    - X_test: (N_test, 3, 200, 200) array of testing images.
     - y_test: (N_test,) array of test labels; if test labels are not available
     (such as in student code) then y_test will be None.
     """
@@ -50,14 +50,14 @@ def load_tiny_imagenet(path, dtype=np.float):
             filenames = [x.split('\t')[0] for x in f]
         num_images = len(filenames)
 
-        X_train_block = np.zeros((num_images, 3, 400, 400), dtype=dtype)
+        X_train_block = np.zeros((num_images, 3, 200, 200), dtype=dtype)
         y_train_block = wnid_to_label[wnid] * np.ones(num_images, dtype=np.int64)
         for j, img_file in enumerate(filenames):
             img_file = os.path.join(path, 'train', wnid, 'images', img_file)
             img = imread(img_file)
             if img.ndim == 2:
             ## grayscale file
-                img.shape = (400, 400, 1)
+                img.shape = (200, 200, 1)
             X_train_block[j] = img.transpose(2, 0, 1)
         X_train.append(X_train_block)
         y_train.append(y_train_block)
@@ -77,35 +77,35 @@ def load_tiny_imagenet(path, dtype=np.float):
             val_wnids.append(wnid)
         num_val = len(img_files)
         y_val = np.array([wnid_to_label[wnid] for wnid in val_wnids])
-        X_val = np.zeros((num_val, 3, 400, 400), dtype=dtype)
+        X_val = np.zeros((num_val, 3, 200, 200), dtype=dtype)
         for i, img_file in enumerate(img_files):
             img_file = os.path.join(path, 'val', 'images', img_file)
             img = imread(img_file)
             if img.ndim == 2:
-                img.shape = (400, 400, 1)
-            X_val[i] = img.transpose(2, 0, 1)
+                img.shape = (200, 1, 200)
+            X_val[i] = img.transpose(1, 2, 0)
 
     # Next load test images
     # Students won't have test labels, so we need to iterate over files in the
     # images directory.
-    img_files = os.listdir(os.path.join(path, 'test', 'images'))
-    X_test = np.zeros((len(img_files), 3, 400, 400), dtype=dtype)
-    for i, img_file in enumerate(img_files):
-        img_file = os.path.join(path, 'test', 'images', img_file)
-        img = imread(img_file)
-        if img.ndim == 2:
-            img.shape = (400, 400, 1)
-        X_test[i] = img.transpose(2, 0, 1)
+#    img_files = os.listdir(os.path.join(path, 'test', 'images'))
+#    X_test = np.zeros((len(img_files), 3, 200, 200), dtype=dtype)
+#    for i, img_file in enumerate(img_files):
+#        img_file = os.path.join(path, 'test', 'images', img_file)
+#        img = imread(img_file)
+#        if img.ndim == 2:
+#            img.shape = (200, 200)
+#        X_test[i] = img.transpose(1, 2, 0)
+#
+#    y_test = None
+#    y_test_file = os.path.join(path, 'test', 'test_annotations.txt')
+#    if os.path.isfile(y_test_file):
+#        with open(y_test_file, 'r') as f:
+#            img_file_to_wnid = {}
+#            for line in f:
+#                line = line.split('\t')
+#                img_file_to_wnid[line[0]] = line[1]
+#        y_test = [wnid_to_label[img_file_to_wnid[img_file]] for img_file in img_files]
+#        y_test = np.array(y_test)
 
-    y_test = None
-    y_test_file = os.path.join(path, 'test', 'test_annotations.txt')
-    if os.path.isfile(y_test_file):
-        with open(y_test_file, 'r') as f:
-            img_file_to_wnid = {}
-            for line in f:
-                line = line.split('\t')
-                img_file_to_wnid[line[0]] = line[1]
-        y_test = [wnid_to_label[img_file_to_wnid[img_file]] for img_file in img_files]
-        y_test = np.array(y_test)
-
-    return class_names, X_train, y_train, X_val, y_val, X_test,y_test
+    return class_names, X_train, y_train, X_val, y_val
